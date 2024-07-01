@@ -1,6 +1,8 @@
 import csv
 import networkx as nx
 from math import radians, cos, sin, sqrt, atan2
+import random
+rng = random.SystemRandom()
 
 def haversine(coord1, coord2):
     R = 6371.0
@@ -40,7 +42,7 @@ def build_graph():
         G.add_node(f'CS_{i}', type='charging_station', visited=False, pos=coord)
 
     for i, coord in enumerate(parking_spots):
-        G.add_node(f'PS_{i}', type='parking_spot', scooters=[], pos=coord)
+        G.add_node(f'PS_{i}', type='parking_spot',  scooters=[], pos=coord)
 
     for node1 in G.nodes:
         for node2 in G.nodes:
@@ -50,6 +52,31 @@ def build_graph():
                 distance = haversine(pos1, pos2)
                 G.add_edge(node1, node2, weight=distance)
 
+    return G
 
-# print(f"Вершины графа: {G.nodes(data=True)}")
-# print(f"Рёбра графа: {G.edges(data=True)}")
+def populate_scooters(G, total_scooters=150, min_scooters=0, max_scooters=7, min_percentage=0, max_percentage=100):
+    parking_spots = [node for node, attr in G.nodes(data=True) if attr['type'] == 'parking_spot']
+    num_parking_spots = len(parking_spots)
+
+    scooters_per_parking = [min_scooters] * num_parking_spots
+    remaining_scooters = total_scooters - sum(scooters_per_parking)
+    
+    for _ in range(remaining_scooters):
+        spot_index = rng.randint(0, num_parking_spots - 1)
+        if scooters_per_parking[spot_index] < max_scooters:
+            scooters_per_parking[spot_index] += 1
+    
+    for i, spot in enumerate(parking_spots):
+        #print(f"Populating parking spot {spot} with {scooters_per_parking[i]} scooters")
+        scooters = [{'id': j, 'battery': rng.randint(min_percentage, max_percentage)} for j in range(scooters_per_parking[i])]
+        G.nodes[spot]['scooters'] = scooters
+
+    # all_scooters_battery = [scooter['battery'] for spot in parking_spots for scooter in G.nodes[spot]['scooters']]
+    # return all_scooters_battery
+
+G = build_graph()
+populate_scooters(G, 150, 0, 10, 0, 100)
+
+# scooters = populate_scooters(G, 150, 0, 10, 0, 100)
+# print(scooters)
+
