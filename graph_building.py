@@ -74,9 +74,16 @@ def populate_scooters(G, total_scooters=150, min_scooters=0, max_scooters=7, min
     # all_scooters_battery = [scooter['battery'] for spot in parking_spots for scooter in G.nodes[spot]['scooters']]
     # return all_scooters_battery
 
+def graph_save(G):
+    nx.write_gml(G, 'graph.gml')
+
+def graph_load():
+    return nx.read_gml('graph.gml')
+
 G = build_graph()
 populate_scooters(G, 150, 0, 10, 0, 100)
+graph_save(G)
 
 # scooters = populate_scooters(G, 150, 0, 10, 0, 100)
-# print(scooters)
+# 
 
