@@ -31,7 +31,7 @@ def read_coordinates_from_csv(file_path):
                 parking_spots.append(coord)
     return charging_stations, parking_spots
 
-def build_graph():
+def build_base_graph():
     file_path = 'coordinates.csv'
 
     charging_stations, parking_spots = read_coordinates_from_csv(file_path)
@@ -42,8 +42,21 @@ def build_graph():
         G.add_node(f'CS_{i}', type='charging_station', visited=False, pos=coord)
 
     for i, coord in enumerate(parking_spots):
-        G.add_node(f'PS_{i}', type='parking_spot',  scooters=[], pos=coord)
+        G.add_node(f'PS_{i}', type='parking_spot', scooters=[], pos=coord)
 
+    return G
+
+def build_range_graph(G, range=0.5):
+    for node1 in G.nodes:
+        for node2 in G.nodes:
+            if node1 != node2:
+                pos1 = G.nodes[node1]['pos']
+                pos2 = G.nodes[node2]['pos']
+                distance = haversine(pos1, pos2)
+                if(distance <= range):
+                    G.add_edge(node1, node2, weight=distance)
+
+def build_full_graph(G):
     for node1 in G.nodes:
         for node2 in G.nodes:
             if node1 != node2:
@@ -51,8 +64,6 @@ def build_graph():
                 pos2 = G.nodes[node2]['pos']
                 distance = haversine(pos1, pos2)
                 G.add_edge(node1, node2, weight=distance)
-
-    return G
 
 def populate_scooters(G, total_scooters=150, min_scooters=0, max_scooters=7, min_percentage=0, max_percentage=100):
     parking_spots = [node for node, attr in G.nodes(data=True) if attr['type'] == 'parking_spot']
@@ -74,15 +85,22 @@ def populate_scooters(G, total_scooters=150, min_scooters=0, max_scooters=7, min
     # all_scooters_battery = [scooter['battery'] for spot in parking_spots for scooter in G.nodes[spot]['scooters']]
     # return all_scooters_battery
 
-def graph_save(G):
-    nx.write_gml(G, 'graph.gml')
+def graph_save(G, filename='graph.gml'):
+    nx.write_gml(G, filename)
 
-def graph_load():
-    return nx.read_gml('graph.gml')
+def graph_load(filename='graph.gml'):
+    return nx.read_gml(filename)
 
-G = build_graph()
+G = build_base_graph()
 populate_scooters(G, 150, 0, 10, 0, 100)
-graph_save(G)
+build_full_graph(G)
+graph_save(G, 'graph.gml')
+
+g = build_base_graph()
+populate_scooters(g, 150, 0, 10, 0, 100)
+build_range_graph(g, 0.5)
+graph_save(g, 'graph_range.gml')
+
 
 # scooters = populate_scooters(G, 150, 0, 10, 0, 100)
 # 

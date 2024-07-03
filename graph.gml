@@ -85,31 +85,15 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 70
+      battery 99
     ]
     scooters [
       id 1
-      battery 86
+      battery 70
     ]
     scooters [
       id 2
-      battery 58
-    ]
-    scooters [
-      id 3
-      battery 97
-    ]
-    scooters [
-      id 4
-      battery 28
-    ]
-    scooters [
-      id 5
-      battery 21
-    ]
-    scooters [
-      id 6
-      battery 2
+      battery 70
     ]
     pos 55.790713
     pos 37.769883
@@ -120,19 +104,31 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 57
+      battery 74
     ]
     scooters [
       id 1
-      battery 65
+      battery 41
     ]
     scooters [
       id 2
-      battery 83
+      battery 33
     ]
     scooters [
       id 3
-      battery 19
+      battery 55
+    ]
+    scooters [
+      id 4
+      battery 1
+    ]
+    scooters [
+      id 5
+      battery 53
+    ]
+    scooters [
+      id 6
+      battery 54
     ]
     pos 55.793551
     pos 37.775943
@@ -143,27 +139,27 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 52
+      battery 56
     ]
     scooters [
       id 1
-      battery 76
+      battery 0
     ]
     scooters [
       id 2
-      battery 96
+      battery 26
     ]
     scooters [
       id 3
-      battery 13
+      battery 78
     ]
     scooters [
       id 4
-      battery 22
+      battery 15
     ]
     scooters [
       id 5
-      battery 91
+      battery 87
     ]
     scooters [
       id 6
@@ -171,15 +167,11 @@ graph [
     ]
     scooters [
       id 7
-      battery 50
+      battery 67
     ]
     scooters [
       id 8
-      battery 28
-    ]
-    scooters [
-      id 9
-      battery 30
+      battery 58
     ]
     pos 55.789836
     pos 37.777517
@@ -190,27 +182,11 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 36
+      battery 17
     ]
     scooters [
       id 1
-      battery 40
-    ]
-    scooters [
-      id 2
-      battery 0
-    ]
-    scooters [
-      id 3
-      battery 57
-    ]
-    scooters [
-      id 4
-      battery 30
-    ]
-    scooters [
-      id 5
-      battery 18
+      battery 52
     ]
     pos 55.788177
     pos 37.783031
@@ -221,15 +197,11 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 51
-    ]
-    scooters [
-      id 1
       battery 30
     ]
     scooters [
-      id 2
-      battery 35
+      id 1
+      battery 58
     ]
     pos 55.794458
     pos 37.787686
@@ -240,23 +212,19 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 72
+      battery 92
     ]
     scooters [
       id 1
-      battery 43
+      battery 88
     ]
     scooters [
       id 2
-      battery 82
+      battery 68
     ]
     scooters [
       id 3
       battery 23
-    ]
-    scooters [
-      id 4
-      battery 19
     ]
     pos 55.788712
     pos 37.791086
@@ -267,19 +235,15 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 41
+      battery 100
     ]
     scooters [
       id 1
-      battery 83
+      battery 59
     ]
     scooters [
       id 2
-      battery 89
-    ]
-    scooters [
-      id 3
-      battery 31
+      battery 6
     ]
     pos 55.79255
     pos 37.793834
@@ -290,31 +254,27 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 61
+      battery 100
     ]
     scooters [
       id 1
-      battery 65
+      battery 68
     ]
     scooters [
       id 2
-      battery 41
+      battery 54
     ]
     scooters [
       id 3
-      battery 60
+      battery 33
     ]
     scooters [
       id 4
-      battery 63
+      battery 97
     ]
     scooters [
       id 5
-      battery 27
-    ]
-    scooters [
-      id 6
-      battery 65
+      battery 36
     ]
     pos 55.789668
     pos 37.798769
@@ -325,31 +285,19 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 72
+      battery 21
     ]
     scooters [
       id 1
-      battery 41
+      battery 22
     ]
     scooters [
       id 2
-      battery 38
+      battery 10
     ]
     scooters [
       id 3
-      battery 80
-    ]
-    scooters [
-      id 4
-      battery 60
-    ]
-    scooters [
-      id 5
-      battery 57
-    ]
-    scooters [
-      id 6
-      battery 49
+      battery 67
     ]
     pos 55.793692
     pos 37.799867
@@ -358,10 +306,13 @@ graph [
     id 19
     label "PS_9"
     type "parking_spot"
-    scooters "_networkx_list_start"
     scooters [
       id 0
-      battery 50
+      battery 11
+    ]
+    scooters [
+      id 1
+      battery 24
     ]
     pos 55.79502
     pos 37.80513
@@ -372,15 +323,19 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 85
+      battery 34
     ]
     scooters [
       id 1
-      battery 72
+      battery 18
     ]
     scooters [
       id 2
-      battery 60
+      battery 4
+    ]
+    scooters [
+      id 3
+      battery 63
     ]
     pos 55.791091
     pos 37.805368
@@ -391,15 +346,15 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 51
+      battery 92
     ]
     scooters [
       id 1
-      battery 98
+      battery 78
     ]
     scooters [
       id 2
-      battery 97
+      battery 74
     ]
     scooters [
       id 3
@@ -407,7 +362,23 @@ graph [
     ]
     scooters [
       id 4
-      battery 90
+      battery 84
+    ]
+    scooters [
+      id 5
+      battery 100
+    ]
+    scooters [
+      id 6
+      battery 51
+    ]
+    scooters [
+      id 7
+      battery 85
+    ]
+    scooters [
+      id 8
+      battery 86
     ]
     pos 55.789193
     pos 37.810233
@@ -418,35 +389,31 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 54
+      battery 55
     ]
     scooters [
       id 1
-      battery 54
+      battery 65
     ]
     scooters [
       id 2
-      battery 6
+      battery 36
     ]
     scooters [
       id 3
-      battery 99
+      battery 70
     ]
     scooters [
       id 4
-      battery 49
+      battery 42
     ]
     scooters [
       id 5
-      battery 10
+      battery 9
     ]
     scooters [
       id 6
-      battery 66
-    ]
-    scooters [
-      id 7
-      battery 48
+      battery 44
     ]
     pos 55.796535
     pos 37.811561
@@ -457,19 +424,11 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 41
+      battery 13
     ]
     scooters [
       id 1
-      battery 30
-    ]
-    scooters [
-      id 2
-      battery 31
-    ]
-    scooters [
-      id 3
-      battery 35
+      battery 87
     ]
     pos 55.795043
     pos 37.816028
@@ -480,23 +439,31 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 25
+      battery 93
     ]
     scooters [
       id 1
-      battery 65
+      battery 33
     ]
     scooters [
       id 2
-      battery 34
+      battery 69
     ]
     scooters [
       id 3
-      battery 23
+      battery 71
     ]
     scooters [
       id 4
-      battery 9
+      battery 3
+    ]
+    scooters [
+      id 5
+      battery 51
+    ]
+    scooters [
+      id 6
+      battery 59
     ]
     pos 55.791256
     pos 37.818964
@@ -507,19 +474,19 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 91
+      battery 41
     ]
     scooters [
       id 1
-      battery 86
+      battery 41
     ]
     scooters [
       id 2
-      battery 29
+      battery 20
     ]
     scooters [
       id 3
-      battery 86
+      battery 44
     ]
     pos 55.794126
     pos 37.821829
@@ -530,31 +497,15 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 70
+      battery 90
     ]
     scooters [
       id 1
-      battery 49
+      battery 59
     ]
     scooters [
       id 2
-      battery 100
-    ]
-    scooters [
-      id 3
-      battery 60
-    ]
-    scooters [
-      id 4
-      battery 65
-    ]
-    scooters [
-      id 5
-      battery 22
-    ]
-    scooters [
-      id 6
-      battery 85
+      battery 34
     ]
     pos 55.801978
     pos 37.825462
@@ -565,19 +516,23 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 86
+      battery 43
     ]
     scooters [
       id 1
-      battery 17
+      battery 54
     ]
     scooters [
       id 2
-      battery 12
+      battery 38
     ]
     scooters [
       id 3
-      battery 95
+      battery 29
+    ]
+    scooters [
+      id 4
+      battery 10
     ]
     pos 55.797643
     pos 37.819259
@@ -588,19 +543,31 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 65
+      battery 26
     ]
     scooters [
       id 1
-      battery 69
+      battery 83
     ]
     scooters [
       id 2
-      battery 84
+      battery 55
     ]
     scooters [
       id 3
-      battery 43
+      battery 71
+    ]
+    scooters [
+      id 4
+      battery 8
+    ]
+    scooters [
+      id 5
+      battery 85
+    ]
+    scooters [
+      id 6
+      battery 97
     ]
     pos 55.801677
     pos 37.81616
@@ -609,10 +576,25 @@ graph [
     id 29
     label "PS_19"
     type "parking_spot"
-    scooters "_networkx_list_start"
     scooters [
       id 0
-      battery 40
+      battery 26
+    ]
+    scooters [
+      id 1
+      battery 41
+    ]
+    scooters [
+      id 2
+      battery 91
+    ]
+    scooters [
+      id 3
+      battery 24
+    ]
+    scooters [
+      id 4
+      battery 42
     ]
     pos 55.801576
     pos 37.809185
@@ -623,15 +605,27 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 44
+      battery 19
     ]
     scooters [
       id 1
-      battery 30
+      battery 82
     ]
     scooters [
       id 2
-      battery 3
+      battery 84
+    ]
+    scooters [
+      id 3
+      battery 28
+    ]
+    scooters [
+      id 4
+      battery 52
+    ]
+    scooters [
+      id 5
+      battery 39
     ]
     pos 55.797675
     pos 37.802444
@@ -642,19 +636,23 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 46
+      battery 65
     ]
     scooters [
       id 1
-      battery 13
+      battery 82
     ]
     scooters [
       id 2
-      battery 90
+      battery 72
     ]
     scooters [
       id 3
-      battery 26
+      battery 75
+    ]
+    scooters [
+      id 4
+      battery 75
     ]
     pos 55.802364
     pos 37.799362
@@ -665,26 +663,22 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 87
+      battery 67
     ]
     scooters [
       id 1
-      battery 77
+      battery 11
     ]
     scooters [
       id 2
-      battery 6
+      battery 12
     ]
     scooters [
       id 3
-      battery 88
+      battery 100
     ]
     scooters [
       id 4
-      battery 5
-    ]
-    scooters [
-      id 5
       battery 27
     ]
     pos 55.797131
@@ -696,27 +690,19 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 72
+      battery 15
     ]
     scooters [
       id 1
-      battery 74
+      battery 17
     ]
     scooters [
       id 2
-      battery 55
+      battery 26
     ]
     scooters [
       id 3
-      battery 64
-    ]
-    scooters [
-      id 4
-      battery 92
-    ]
-    scooters [
-      id 5
-      battery 92
+      battery 23
     ]
     pos 55.801294
     pos 37.791179
@@ -727,19 +713,31 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 39
+      battery 55
     ]
     scooters [
       id 1
-      battery 33
+      battery 3
     ]
     scooters [
       id 2
-      battery 90
+      battery 100
     ]
     scooters [
       id 3
-      battery 84
+      battery 10
+    ]
+    scooters [
+      id 4
+      battery 13
+    ]
+    scooters [
+      id 5
+      battery 34
+    ]
+    scooters [
+      id 6
+      battery 29
     ]
     pos 55.799066
     pos 37.788136
@@ -750,35 +748,19 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 90
+      battery 75
     ]
     scooters [
       id 1
-      battery 31
-    ]
-    scooters [
-      id 2
-      battery 5
-    ]
-    scooters [
-      id 3
-      battery 61
-    ]
-    scooters [
-      id 4
-      battery 6
-    ]
-    scooters [
-      id 5
       battery 62
     ]
     scooters [
-      id 6
-      battery 90
+      id 2
+      battery 88
     ]
     scooters [
-      id 7
-      battery 83
+      id 3
+      battery 97
     ]
     pos 55.801078
     pos 37.781593
@@ -789,27 +771,27 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 26
+      battery 29
     ]
     scooters [
       id 1
-      battery 36
-    ]
-    scooters [
-      id 2
-      battery 56
-    ]
-    scooters [
-      id 3
-      battery 15
-    ]
-    scooters [
-      id 4
       battery 92
     ]
     scooters [
+      id 2
+      battery 93
+    ]
+    scooters [
+      id 3
+      battery 49
+    ]
+    scooters [
+      id 4
+      battery 21
+    ]
+    scooters [
       id 5
-      battery 14
+      battery 16
     ]
     pos 55.797277
     pos 37.782638
@@ -820,19 +802,35 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 27
+      battery 58
     ]
     scooters [
       id 1
-      battery 41
+      battery 90
     ]
     scooters [
       id 2
-      battery 10
+      battery 64
     ]
     scooters [
       id 3
-      battery 18
+      battery 50
+    ]
+    scooters [
+      id 4
+      battery 74
+    ]
+    scooters [
+      id 5
+      battery 22
+    ]
+    scooters [
+      id 6
+      battery 85
+    ]
+    scooters [
+      id 7
+      battery 52
     ]
     pos 55.797368
     pos 37.776906
@@ -843,23 +841,15 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 23
+      battery 29
     ]
     scooters [
       id 1
-      battery 44
+      battery 28
     ]
     scooters [
       id 2
-      battery 43
-    ]
-    scooters [
-      id 3
-      battery 62
-    ]
-    scooters [
-      id 4
-      battery 94
+      battery 86
     ]
     pos 55.797065
     pos 37.772071
@@ -870,23 +860,31 @@ graph [
     type "parking_spot"
     scooters [
       id 0
-      battery 37
+      battery 30
     ]
     scooters [
       id 1
-      battery 27
+      battery 50
     ]
     scooters [
       id 2
-      battery 11
+      battery 67
     ]
     scooters [
       id 3
-      battery 62
+      battery 31
     ]
     scooters [
       id 4
-      battery 70
+      battery 45
+    ]
+    scooters [
+      id 5
+      battery 96
+    ]
+    scooters [
+      id 6
+      battery 12
     ]
     pos 55.800641
     pos 37.769183
