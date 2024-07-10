@@ -32,11 +32,11 @@ def replace_batteries(G, current_node, remaining_batteries):
     count_of_scooters = 0
     count_of_batteries = 0
     for scooter in G.nodes[current_node]['scooters']:
-        if scooter['battery'] < 50:
+        if scooter['battery'] < 55:
             count_of_scooters += 1
             if remaining_batteries > 0:
                 replacement_log.append((current_node, scooter['id'], scooter['battery']))
-                print((current_node, scooter['id'], scooter['battery']))
+                # print("Debug: replace batteries", (current_node, scooter['id'], scooter['battery']))
                 scooter['battery'] = 100
                 remaining_batteries -= 1
                 count_of_batteries += 1
@@ -51,6 +51,14 @@ def find_nearest_charging_station(G, current_node, visited_stations):
         return None
     return min(unvisited_stations, key=lambda x: gb.haversine(G.nodes[current_node]['pos'], G.nodes[x]['pos']))
 
+def find_nearest_parking_spot(G, current_node, visited_parking_spots):
+    unvisited_parking_spots = [
+        n for n in G.nodes if G.nodes[n]['type'] == 'parking_spot' and n not in visited_parking_spots
+    ]
+    if not unvisited_parking_spots:
+        return None
+    return min(unvisited_parking_spots, key=lambda x: haversine(G.nodes[current_node]['pos'], G.nodes[x]['pos']))
+
 
 def dijkstra_path(G, start, goal, visited_parking_spots):
     # Создаем копию графа с удаленными посещенными парковками
@@ -64,7 +72,7 @@ def dijkstra_path(G, start, goal, visited_parking_spots):
         path = nx.dijkstra_path(G_copy, start, goal)
     except nx.NetworkXNoPath:
         # Если путь не найден, строим прямой путь
-        print("Debug: no path")
+        # print("Debug: no path")
         path = [start, goal]
 
     return path
@@ -95,7 +103,7 @@ def greedy_dijkstra_route_planning(G, start, battery_capacity=15):
                 if count_of_scooters == count_of_batteries:
                     visited_parking_spots.add(node)
                     G.nodes[node]['visited'] = True
-                    print(f"Debug: {node} is visited")
+                    # print(f"Debug: {node} is visited")
             else:
                 G.nodes[node]['visited'] = True
             path.append(node)
@@ -106,7 +114,7 @@ def greedy_dijkstra_route_planning(G, start, battery_capacity=15):
         remaining_batteries = battery_capacity
 
     # Обратное движение от 10-й к 1-й станции
-    print("Debug: go back")
+    # print("Debug: go back")
     remaining_batteries = battery_capacity
     while len(visited_stations) > 1:
         next_station = visited_stations[-2]
@@ -122,7 +130,7 @@ def greedy_dijkstra_route_planning(G, start, battery_capacity=15):
                 if count_of_scooters == count_of_batteries:
                     visited_parking_spots.add(node)
                     G.nodes[node]['visited'] = True
-                    print(f"Debug: {node} is visited")
+                    # print(f"Debug: {node} is visited")
             else:
                 G.nodes[node]['visited'] = True
             path.append(node)
@@ -132,6 +140,53 @@ def greedy_dijkstra_route_planning(G, start, battery_capacity=15):
         visited_stations.pop()
 
     return path, calculate_zone_charge(G), replacement_log
+
+def greedy_additional_routing(G, start, battery_capacity=15):
+    path = []
+    remaining_batteries = battery_capacity
+    current_node = start
+    replacement_log = []
+    visited_parking_spots = set()
+    visited_stations = set()
+
+    while calculate_zone_charge(G) < 80:
+        nearest_parking_spot = find_nearest_parking_spot(G, current_node, visited_parking_spots)
+        if not nearest_parking_spot:
+            print('debug: not nearest parking spot in greedy')
+            break
+
+        # Перемещаемся к ближайшей парковке
+        current_node = nearest_parking_spot
+        path.append(current_node)
+        if G.nodes[current_node]['type'] == 'parking_spot':
+            remaining_batteries, log, count_of_scooters, count_of_batteries = replace_batteries(G, current_node,
+                                                                                                remaining_batteries)
+            replacement_log.extend(log)
+            if count_of_scooters == count_of_batteries:
+                visited_parking_spots.add(current_node)
+                G.nodes[current_node]['visited'] = True
+                # print(f"Debug: {current_node} is visited")
+        else:
+            G.nodes[current_node]['visited'] = True
+
+        if calculate_zone_charge(G) >= 80:
+            path.append(start)
+            return path, replacement_log
+
+        if remaining_batteries == 0:
+            nearest_station = find_nearest_charging_station(G, current_node, visited_stations)
+            if not nearest_station:
+                print('debug: not nearest charging station in greedy')
+                break
+
+            # Перемещаемся к ближайшей станции
+            current_node = nearest_station
+            path.append(current_node)
+            remaining_batteries = battery_capacity
+            visited_stations.add(current_node)
+
+    path.append(start)
+    return path, replacement_log
 
 
 def calculate_path_distance(G, path):
@@ -152,8 +207,25 @@ def save_path_to_file(_path, filename='route_path.txt'):
             f.write(_node + '\n')
 
 
+def main_route_planning(G, G_full, start, battery_capacity=15):
+    path, zone_charge, replacement_log = greedy_dijkstra_route_planning(G, start, battery_capacity)
+    # print("\nReplacement Log:")
+    # for log in replacement_log:
+    #     print(f"Station: {log[0]}, Scooter ID: {log[1]}, Previous Battery: {log[2]}%")
+    print(f"Zone Charge after Dijkstra: {zone_charge:.2f}%")
+    print("paht in Dijkstra", path)
+    print(f"Path distance in Dijkstra: {calculate_path_distance(G, path)}")
+
+    if zone_charge < 80:
+        path2, replacement_log = greedy_additional_routing(G, path[-1], battery_capacity)
+        print("path in greedy: ", path2)
+        path += path2
+    return path, calculate_zone_charge(G), replacement_log
+
+
 # Загрузка графа
 G = nx.read_gml('graph_range.gml')
+G_full = nx.read_gml('graph.gml')
 
 # Инициализация всех узлов как непосещенных
 for node in G.nodes:
@@ -161,16 +233,16 @@ for node in G.nodes:
 
 # Установка стартовой вершины
 start_node = 'CS_0'
-path, zone_charge, replacement_log = greedy_dijkstra_route_planning(G, start_node)
+path, zone_charge, replacement_log = main_route_planning(G, G_full, start_node)
 save_path_to_file(path)
 
 print(f"Optimal Path: {path}")
 print(f"Zone Charge: {zone_charge:.2f}%")
 path_distance = calculate_path_distance(G, path)
 print(f"Path Distance: {path_distance}")
-print("\nReplacement Log:")
-for log in replacement_log:
-    print(f"Station: {log[0]}, Scooter ID: {log[1]}, Previous Battery: {log[2]}%")
+# print("\nReplacement Log:")
+# for log in replacement_log:
+#     print(f"Station: {log[0]}, Scooter ID: {log[1]}, Previous Battery: {log[2]}%")
 
 # Визуализация графа и маршрута
 pos = nx.get_node_attributes(G, 'pos')
@@ -186,5 +258,3 @@ if path:
 
 plt.title(f'Route from {start_node} Using Greedy Algorithm')
 plt.show()
-
-# Optimal Path: ['CS_0', 'PS_1', 'CS_2', 'PS_27', 'CS_3', 'PS_26', 'PS_24', 'CS_4', 'PS_22', 'CS_5', 'PS_20', 'CS_6', 'PS_12', 'CS_7', 'PS_12', 'CS_9', 'PS_13', 'CS_8', 'PS_10', 'PS_7', 'CS_1', 'PS_7', 'PS_10', 'CS_8', 'PS_13', 'CS_9', 'PS_12', 'CS_7', 'PS_12', 'CS_6', 'PS_20', 'CS_5', 'PS_20', 'CS_4', 'PS_23', 'PS_25', 'CS_3', 'PS_28', 'CS_2', 'PS_28', 'CS_0']
