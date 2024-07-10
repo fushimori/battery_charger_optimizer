@@ -46,12 +46,11 @@ def build_base_graph(file_path):
 def build_range_graph(G, range=0.5):
     for node1 in G.nodes:
         for node2 in G.nodes:
-            if node1 != node2 and (G.nodes[node1]['type'] != 'charging_spot' or G.nodes[node2]['type'] != 'charging_spot'):
-                if G.nodes[node1]['type'] == 'charging_spot':
-                    print(G.nodes[node1]['type'], G.nodes[node2]['type'])
-                pos1, pos2 = G.nodes[node1]['pos'], G.nodes[node2]['pos']
+            if node1 != node2 and (G.nodes[node1]['type'] == 'parking_spot' or G.nodes[node2]['type'] == 'parking_spot'):
+                pos1 = G.nodes[node1]['pos']
+                pos2 = G.nodes[node2]['pos']
                 distance = haversine(pos1, pos2)
-                if distance <= range:
+                if (distance <= range):
                     G.add_edge(node1, node2, weight=distance)
 
 def build_full_graph(G):
