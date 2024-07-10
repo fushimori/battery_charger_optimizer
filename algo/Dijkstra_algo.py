@@ -32,7 +32,7 @@ def replace_batteries(G, current_node, remaining_batteries):
     count_of_scooters = 0
     count_of_batteries = 0
     for scooter in G.nodes[current_node]['scooters']:
-        if scooter['battery'] < 55:
+        if scooter['battery'] < 60:
             count_of_scooters += 1
             if remaining_batteries > 0:
                 replacement_log.append((current_node, scooter['id'], scooter['battery']))
@@ -50,6 +50,7 @@ def find_nearest_charging_station(G, current_node, visited_stations):
     if not unvisited_stations:
         return None
     return min(unvisited_stations, key=lambda x: gb.haversine(G.nodes[current_node]['pos'], G.nodes[x]['pos']))
+
 
 def find_nearest_parking_spot(G, current_node, visited_parking_spots):
     unvisited_parking_spots = [
@@ -141,6 +142,7 @@ def greedy_dijkstra_route_planning(G, start, battery_capacity=15):
 
     return path, calculate_zone_charge(G), replacement_log
 
+
 def greedy_additional_routing(G, start, battery_capacity=15):
     path = []
     remaining_batteries = battery_capacity
@@ -226,6 +228,8 @@ def main_route_planning(G, G_full, start, battery_capacity=15):
 # Загрузка графа
 G = nx.read_gml('graph_range.gml')
 G_full = nx.read_gml('graph.gml')
+
+print(f"Zone Charge before algo: {calculate_zone_charge(G):.2f}%")
 
 # Инициализация всех узлов как непосещенных
 for node in G.nodes:
