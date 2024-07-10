@@ -6,7 +6,6 @@ from shapely.geometry import Point, Polygon
 
 rng = random.SystemRandom()
 
-# Считывание координат зоны из CSV файла
 def read_zone_coordinates(file_path):
     coordinates = []
     with open(file_path, newline='') as csvfile:
@@ -15,7 +14,6 @@ def read_zone_coordinates(file_path):
             coordinates.append((float(row['latitude']), float(row['longitude'])))
     return coordinates
 
-# Функция для генерации равномерно распределённых точек с использованием Poisson Disk Sampling
 def poisson_disk_sampling(polygon, radius, num_points, k=30):
     min_x, min_y, max_x, max_y = polygon.bounds
     width = max_x - min_x
@@ -62,7 +60,7 @@ def poisson_disk_sampling(polygon, radius, num_points, k=30):
         if not process_list:
             break
         point = process_list.pop(rng.randint(0, len(process_list) - 1))
-        for _ in range(k):  # k = 30
+        for _ in range(k): 
             angle = rng.uniform(0, 2 * math.pi)
             radius_offset = rng.uniform(radius, 2 * radius)
             new_point = Point(
@@ -74,7 +72,6 @@ def poisson_disk_sampling(polygon, radius, num_points, k=30):
                 if len(sample_points) >= num_points:
                     break
 
-    # Добавление недостающих точек случайным образом
     while len(sample_points) < num_points:
         new_point = Point(rng.uniform(min_x, max_x), rng.uniform(min_y, max_y))
 
@@ -83,7 +80,6 @@ def poisson_disk_sampling(polygon, radius, num_points, k=30):
 
     return sample_points
 
-# Генерация станций зарядки и парковок с использованием Poisson Disk Sampling
 def generate_stations_and_parking(zone_polygon, num_charging_stations, total_parking_spots, k=500):
     radius_charging = math.sqrt(zone_polygon.area / num_charging_stations) 
     radius_parking = radius_charging / 1.05
@@ -103,18 +99,12 @@ def generate_stations_and_parking(zone_polygon, num_charging_stations, total_par
 
     return charging_stations, parking_spots
 
-# Считывание координат зоны
 zone_coordinates = read_zone_coordinates('../data/zone.csv')
 
-# Создание многоугольника зоны
 zone_polygon = Polygon(zone_coordinates)
 
-# Генерация зарядных станций и парковок
-num_charging_stations = 10
-total_parking_spots = 30
-charging_stations, parking_spots = generate_stations_and_parking(zone_polygon, num_charging_stations, total_parking_spots)
+charging_stations, parking_spots = generate_stations_and_parking(zone_polygon, num_charging_stations= 10, total_parking_spots = 30)
 
-# Запись в новый CSV файл
 output_file = '../data/dynamic_coords.csv'
 with open(output_file, mode='w', newline='') as file:
     writer = csv.writer(file)
@@ -124,7 +114,6 @@ with open(output_file, mode='w', newline='') as file:
     for spot in parking_spots:
         writer.writerow(['parking_spot', spot.x, spot.y])
 
-# Визуализация результата
 plt.figure(figsize=(10, 10))
 x, y = zip(*zone_coordinates)
 plt.plot(y, x, 'r-')
